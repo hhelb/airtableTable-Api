@@ -1,1 +1,1 @@
-[{"name":"Architecture","id":1},{"name":"Tourisme","id":2},{"name":"Culture","id":3},{"name":"Style de vie","id":4},{"name":"Société","id":5},{"name":"Histoire","id":6},{"name":"Archéologie","id":7}]
+[{"name":"Architecture","id":1},{"name":"Tourisme","id":2,"linked_places":["rec4UH8NZajjo1SZr"]},{"name":"Culture","id":3},{"name":"Style de vie","id":4},{"name":"Société","id":5},{"name":"Histoire","id":6,"linked_places":["rec4UH8NZajjo1SZr"]},{"name":"Archéologie","id":7}]

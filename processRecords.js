@@ -41,6 +41,13 @@ function getrecords(base, view,nomTable) {
                     }
                     else{
                         var nomField = field.slice(7);
+                        var airtableId = record.get(field);
+                        base(nomTable).find(airtableId, function(err, record){
+                            if(err){console.log(nomTable +" "+airtableId +"/////////////////"+err); return;}
+                            console.log(nomTable + " a pour clé étrangère "+ record.get('id')+" est l'id du de la table "+nomField);
+                        });
+
+                        //processLinkedTable(nomTable, nomField, record.get(field));
                         // un tableau contenant les Ids des données étrangères à la table en cours de traitement
                         /*
                         base(nomTable).find(record.get(field, function(err, record){
@@ -48,8 +55,7 @@ function getrecords(base, view,nomTable) {
                             tabLinked['id_'+nomField] = record.get('id');
                         }));
                         */
-                        tabLinked['id_'+nomTable] = record.get('id');
-
+                        tabLinked[field] = record.get(field);
                 }
                 }
                 table.push(tableField);
@@ -70,7 +76,6 @@ function getrecords(base, view,nomTable) {
         // On va faire un callback à la fonction d'écriture une fois que les données ont bien été stockées
         resolve(writeTableToJson(table, links, nomTable));
         reject("nonono");
-            console.log(links);
        }, function done(error){
            if (error){console.log(error);}}
        );
@@ -94,7 +99,23 @@ function chaining(tables){
         getrecords(base, view, tables[i]); // dans la méthode resolve de cette fonction
     }
 }
-function processField(field){
 
+function processLinkedTable(nomTable ,nomField, field){
+    return new Promise(function(resolve, reject){
+        var tab = [];
+        base(nomTable).find(field, function(err, record){
+            if(err){console.log(err); return;}
+            tab['id_'+nomField] = record.get('id');
+        });
+        resolve(console.log(tab));
+        reject(console.log("nomnomnomnom"));
+    })
 }
 chaining(tables);
+
+/*
+base('places').find('recUl8D2gxT0X0wy7', function(err, record){
+    if(err){console.log(err); return;}
+    console.log(record.get('id'));
+});
+    */
