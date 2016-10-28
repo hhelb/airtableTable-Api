@@ -13,12 +13,11 @@ mysql.createConnection({
 }).then(function() {
 	//array of the path of the Json files
 	var myTables = getMainTable();
-	var myLinkedTables = getLinkedTable();
 	//slice the names to get the same names as in mysql
 	var names = processNames(myTables);
-	var linkedNames = processNames(myLinkedTables);
 	//loop to insert the values from the json files
 	for (var i = 0; i < names.length; i++) {
+        // MAZ de la bdd avant traitement
         connection.query("DELETE FROM " + names[i]);
         var tabJsonData = require(myTables[i]);
         for (var k = 0; k< tabJsonData.length; k++) {
@@ -26,7 +25,6 @@ mysql.createConnection({
             var columns = [];
             var values = [];
             var str = "";
-            // MAZ de la bdd avant traitement
             for (var key in jsonData) {
                 if (key == "presentations" && jsonData.presentations !== undefined && jsonData.presentations.indexOf('"') > -1) {
                     var res = jsonData.presentations.replace(/["']/g, "'");
@@ -66,16 +64,11 @@ mysql.createConnection({
                 values.push(str);
 
             }
-            //console.log("INSERT INTO " + names[i] + " ("+columns+")"+" VALUES ("+values+")");
+            console.log("INSERT INTO " + names[i] + " ("+columns+")"+" VALUES ("+values+")");
             connection.query("INSERT INTO " + names[i] + " (" + columns + ")" + " VALUES (" + values + ")");
         }
     }
 }).then(function(){
-	/*
-    connection.query("INSERT INTO categories_events (categories_id, events_id)" +
-		" (SELECT categories.id, events.id" +
-		" from categories, events)");
-		*/
 	console.log("done");
 });
 
@@ -83,34 +76,11 @@ function getMainTable(){
 		var results = [];
 		var dir = './json/';
 		fs.readdirSync(dir).forEach(function(file){
-			if(file.indexOf('_link') == -1)
-			{
+			    //push the name of the file
 				results.push(dir+file);
-			}
 		});
 		return results;
 	}
-function getLinkedTable(){
-	var results = [];
-	var dir = './json/';
-	fs.readdirSync(dir).forEach(function(file){
-		if(file.indexOf('_link') > -1)
-		{
-			results.push(dir+file);
-		}
-	});
-	return results;
-}
-
-function processLinkedTable(){
-	var linkedTables = getLinkedTable();
-	var linkedNames = processNames(linkedTables);
-	for (var i = 0; i<linkedNames.length; i++) {
-		var data = require(linkedTables[i]);
-		console.log(linkedNames[i]);
-		console.log(data);
-	}
-}
 
 function processNames(arrayOfJsonFiles){
 	var names = [];
@@ -125,5 +95,3 @@ function processDate(date) {
 	var dateStr = String(date);
 	return dateStr.substr(0, 10);
 }
-
-//processLinkedTable();

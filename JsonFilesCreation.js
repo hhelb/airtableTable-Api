@@ -84,11 +84,12 @@ function findID(nameTable, airtableID,id_table,jsonTable,nameField,array){
         base(nameTable).find(airtableID, function(err, record){
             if(err){console.log(err); return;}
             id = record.get('id');
-            jsonTable['id_'+nameTable] = id_table;
-            jsonTable['id_'+nameField] = id;
+            var nametable = nameTable.slice(0,-1);
+            var namefield = nameField.slice(0,-1);
+            jsonTable[nameTable.slice(-1) == 's'? nametable+'_id':nameTable+'_id'] = id_table;
+            jsonTable[nameField.slice(-1) == 's'? namefield+'_id':nameField+'_id'] = id;
             array.push(jsonTable);
             resolve(tableLinkCreator(nameTable, nameField, array));
-            //resolve(writeLinkedArrayToJson(nameTable, nameField, array));
             reject("no table");
         });
     })
