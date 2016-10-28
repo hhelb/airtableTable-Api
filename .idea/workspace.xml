@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5189edf5-1c69-47c6-974c-84f48b8d7e57" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MainAT.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/getRecords.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/input.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/my.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/promiseAt.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/record.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/record.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JsonFilesCreation.js" afterPath="$PROJECT_DIR$/JsonFilesCreation.js" />
     </list>
     <ignored path="airtableTable Api.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +35,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="JsonFilesCreation.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="JsonFilesCreation.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/JsonFilesCreation.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
@@ -69,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="places_events.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="places_events.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/json/places_events.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -284,7 +290,7 @@
       <workItem from="1477039992001" duration="18513000" />
       <workItem from="1477397996121" duration="10804000" />
       <workItem from="1477466132086" duration="28367000" />
-      <workItem from="1477559151537" duration="25250000" />
+      <workItem from="1477559151537" duration="25507000" />
     </task>
     <task id="LOCAL-00001" summary="Jsoncreator creates the linked tables">
       <created>1477560972803</created>
@@ -300,11 +306,18 @@
       <option name="project" value="LOCAL" />
       <updated>1477642692105</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Linked tables created">
+      <created>1477649044607</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1477649044607</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126173000" />
+    <option name="totallyTimeSpent" value="126430000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1932" height="1038" extended-state="0" />
@@ -342,7 +355,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Jsoncreator creates the linked tables" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jsoncreator creates the linked tables" />
+    <MESSAGE value="Linked tables created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Linked tables created" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -351,22 +365,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/json/objects.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="419" selection-start-line="0" selection-start-column="419" selection-end-line="0" selection-end-column="419" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/json/media.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="37" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/json/tags.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -528,13 +526,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/json/categories.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/json/tags.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -705,14 +696,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JsonFilesCreation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="130" column="37" selection-start-line="130" selection-start-column="37" selection-end-line="130" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/json/categories_places.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -729,10 +712,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/promiseAt.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-76">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainAT.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-208">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/json/places_events.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/json/tags.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JsonFilesCreation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="130" column="37" selection-start-line="130" selection-start-column="37" selection-end-line="130" selection-end-column="37" />
           <folding />
         </state>
       </provider>
