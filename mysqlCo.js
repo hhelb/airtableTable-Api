@@ -36,11 +36,6 @@ mysql.createConnection({
                 if (jsonData.name == undefined) {
                     jsonData.name = "PAS DE NOM";
                 }
-/*
-                if (jsonData.id == undefined) {
-                    jsonData.id = "";
-                }
-*/
                 if (jsonData.start_date !== undefined) {
                     jsonData.start_date = processDate(jsonData.start_date);
                 }
@@ -58,7 +53,6 @@ mysql.createConnection({
                         jsonData.Attachments = jsonData.Attachments[0].url;
                     }
                 }
-
                 columns.push(key);
                 if (typeof jsonData[key] !== "number") {
                     if (typeof jsonData[key] == "object") {

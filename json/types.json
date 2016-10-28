@@ -1,9 +1,1 @@
-[{"Name":"Château","id":1,"linked_places":["rec4UH8NZajjo1SZr"]},
-  {"Name":"Fortifications","id":2},{"Name":"Immeuble","id":3},
-  {"Name":"Villa","id":4},{"Name":"Infrastructure","id":5},
-  {"Name":"Maison de maître","id":6},{"Name":"Ecole","id":7},
-  {"Name":"Mairie","id":8},{"Name":"Institution","id":9},
-  {"Name":"Paysage","id":10},{"Name":"Usine","id":11},
-  {"Name":"Manufacture","id":12},{"Name":"Sculpture","id":13},
-  {"Name":"Peinture","id":14},{"Name":"Céramique","id":15},
-  {"Name":"Ferronerie","id":16},{"Name":"Musée","id":17}]
+[{"Name":"Château","id":1},{"Name":"Fortifications","id":2},{"Name":"Immeuble","id":3},{"Name":"Villa","id":4},{"Name":"Infrastructure","id":5},{"Name":"Maison de maître","id":6},{"Name":"Ecole","id":7},{"Name":"Mairie","id":8},{"Name":"Institution","id":9},{"Name":"Paysage","id":10},{"Name":"Usine","id":11},{"Name":"Manufacture","id":12},{"Name":"Sculpture","id":13},{"Name":"Peinture","id":14},{"Name":"Céramique","id":15},{"Name":"Ferronerie","id":16},{"Name":"Musée","id":17}]

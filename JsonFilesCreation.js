@@ -1,7 +1,6 @@
 /**
  * Created by hasj on 26/10/2016.
  */
-
 var Airtable = require('airtable');
 var Promise = require('promise');
 var json2csv = require('json2csv');
@@ -28,6 +27,13 @@ var links      = "links";
 
 var tables = [places, people , objects, events , media  , types  , tags , categories, themes  , links];
 
+chaining(tables);
+
+function chaining(tables){
+    for (var i = 0; i<tables.length; i++){
+        getrecords(base, view, tables[i]); // dans la méthode resolve de cette fonction
+    }
+}
 function getrecords(base, view,nomTable) {
         var table = [];
         base(nomTable).select({
@@ -47,27 +53,9 @@ function getrecords(base, view,nomTable) {
                 if (error){console.log(error);}}
         );
 }
-/*
-function writeArrayToJson(table,nomTable){
-    fs.writeFile("./json/"+nomTable+".json", JSON.stringify(table), function(err){
-        if(err) return console.log(nomTable + " " + err);
-        //    console.log(nomTable+ " ecrit");
-    });
-    fs.writeFile("./json/"+nomTable+"_link.json", JSON.stringify(links), function(err){
-        if(err) return console.log(nomTable + " " + err);
-        //    console.log(nomTable+ " linked ecrit");
-    });
-}
-*/
-function writeArrayToJson(nameTable, nameField, array){
-    console.log(JSON.stringify(array));
-    fs.writeFile("./json/"+nameTable+"_"+nameField+".json", JSON.stringify(array), function(err){
-        if(err) console.log("ERROR "+nameTable+"_"+nameField+".json : "+ err);
-    });
-}
-
-function fromOneToTwoTabs(table, nomTable){
+function fromOneToTwoTabs(table, nameTable){
     var tableFinale = [];
+    var array = [];
     for(var i = 0; i<table.length; i++){
         var id_table = table[i]['id'];
         var entry = {};
@@ -75,10 +63,10 @@ function fromOneToTwoTabs(table, nomTable){
             var linkEntry = {};
             var linkedVariable = table[i][key];
             if(key.indexOf("linked_") !== -1){
-                var nomField = key.slice(7);
-                findID(nomTable, linkedVariable, id_table,linkEntry, nomField)
+                var nameField = key.slice(7);
+                findID(nameTable,linkedVariable,id_table,linkEntry,nameField,array)
                     .then(function() {
-                        console.log("Ecriture effectuée");
+                        console.log("ecriture effectuee");
                     })
             }
             else{
@@ -87,27 +75,58 @@ function fromOneToTwoTabs(table, nomTable){
         }
         tableFinale.push(entry);
     }
+    writeTableArrayToJson(nameTable, tableFinale);
 }
 
-function findID(nameTable, airtableID,id_table, table,nameField){
+function findID(nameTable, airtableID,id_table,jsonTable,nameField,array){
     return new Promise ( function(resolve, reject){
         var id = "";
-        var array = [];
         base(nameTable).find(airtableID, function(err, record){
             if(err){console.log(err); return;}
             id = record.get('id');
-            table['id_'+nameTable] = id_table;
-            table['id_'+nameField] = id;
-            array.push(table);
-            resolve(writeArrayToJson(nameTable, nameField, array));
+            jsonTable['id_'+nameTable] = id_table;
+            jsonTable['id_'+nameField] = id;
+            array.push(jsonTable);
+            resolve(tableLinkCreator(nameTable, nameField, array));
+            //resolve(writeLinkedArrayToJson(nameTable, nameField, array));
             reject("no table");
         });
     })
 }
 
-function chaining(tables){
-    for (var i = 0; i<tables.length; i++){
-        getrecords(base, view, tables[i]); // dans la méthode resolve de cette fonction
+function tableLinkCreator(nameTable, nameField, array){
+    var tab = [];
+    var k = 0 ;
+    var bool = [];
+    for (var i = 0; i<array.length; i++){
+        bool.push(false);
+    }
+    console.log(bool);
+    while (k<= array.length){
+        if(bool[k] == false){
+            tab.push(array[k]);
+            bool[k] = true;
+            for ( var j = k+1; j<array; j++){
+                if(bool[j] == false && (tab[0][1] == array[j][1])){
+                    tab.push(array[j]);
+                    bool[j] = true;
+                }
+                    }
+            writeLinkedArrayToJson(nameTable, nameField, tab);
+        }
+        k +=1;
     }
 }
-chaining(tables);
+
+function writeLinkedArrayToJson(nameTable, nameField, array){
+    var path = "./json/"+nameTable+"_"+nameField+".json";
+    fs.writeFile(path, JSON.stringify(array), function(err){
+        if(err) console.log("ERROR "+path+" : "+ err);
+    });
+}
+
+function writeTableArrayToJson(nameTable, array){
+    fs.writeFile("./json/"+nameTable+".json", JSON.stringify(array), function(err){
+        if(err) console.log("ERROR "+ nameTable+ " : "+ err);
+    })
+}
