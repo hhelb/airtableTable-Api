@@ -128,11 +128,19 @@ function tableLinkCreator(nameTable, nameField, array){
 }
 
 function writeLinkedArrayToJson(nameTable, nameField, array){
-    console.log(JSON.stringify(array));
     var path = "./json/"+nameTable+"_"+nameField+".json";
-    fs.writeFile(path, JSON.stringify(array), function(err){
-        if(err) console.log("ERROR "+path+" : "+ err);
-    });
+
+        fs.access("./json/"+nameField+"_"+nameTable+".json", fs.F_OK, function(err){
+            if(!err){
+                console.log("existe deja");
+            }
+            else{
+                fs.writeFile(path, JSON.stringify(array), function(err){
+                    if(err) console.log("ERROR "+path+" : "+ err);
+                });
+            }
+        });
+
 }
 
 function writeTableArrayToJson(nameTable, array){
