@@ -101,24 +101,34 @@ function tableLinkCreator(nameTable, nameField, array){
     for (var i = 0; i<array.length; i++){
         bool.push(false);
     }
-    console.log(bool);
     while (k<= array.length){
         if(bool[k] == false){
             tab.push(array[k]);
             bool[k] = true;
-            for ( var j = k+1; j<array; j++){
-                if(bool[j] == false && (tab[0][1] == array[j][1])){
-                    tab.push(array[j]);
-                    bool[j] = true;
+            for (var i =k+1; i<array.length; i++){
+                var tmptab =[];
+                var tmparray = [];
+                for (var key in tab[0]) {
+                    tmptab.push(key);
                 }
-                    }
+                for (var keyT in array[i]) { /*erreur, il faut seulement récupérer le deuxième élément*/
+                        tmparray.push(keyT);
+                }
+                if(bool[i] == false && (tmptab[1] == tmparray[1])){
+                    tab.push(array[i]);
+                    bool[i] = true;
+                }
+                }
             writeLinkedArrayToJson(nameTable, nameField, tab);
+
         }
         k +=1;
+        tab = [];
     }
 }
 
 function writeLinkedArrayToJson(nameTable, nameField, array){
+    console.log(JSON.stringify(array));
     var path = "./json/"+nameTable+"_"+nameField+".json";
     fs.writeFile(path, JSON.stringify(array), function(err){
         if(err) console.log("ERROR "+path+" : "+ err);
