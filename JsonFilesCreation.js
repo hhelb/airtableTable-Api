@@ -127,10 +127,8 @@ function tableLinkCreator(nameTable, nameField, array){
         tab = [];
     }
 }
-
 function writeLinkedArrayToJson(nameTable, nameField, array){
     var path = "./json/"+nameTable+"_"+nameField+".json";
-
         fs.access("./json/"+nameField+"_"+nameTable+".json", fs.F_OK, function(err){
             if(!err){
                 console.log("existe deja");
@@ -141,7 +139,6 @@ function writeLinkedArrayToJson(nameTable, nameField, array){
                 });
             }
         });
-
 }
 
 function writeTableArrayToJson(nameTable, array){

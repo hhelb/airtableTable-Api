@@ -18,6 +18,7 @@ mysql.createConnection({
 	//loop to insert the values from the json files
 	for (var i = 0; i < names.length; i++) {
         // MAZ de la bdd avant traitement
+        connection.query("SET FOREIGN_KEY_CHECKS=0");
         connection.query("DELETE FROM " + names[i]);
         var tabJsonData = require(myTables[i]);
         for (var k = 0; k< tabJsonData.length; k++) {
@@ -65,6 +66,7 @@ mysql.createConnection({
 
             }
             console.log("INSERT INTO " + names[i] + " ("+columns+")"+" VALUES ("+values+")");
+            connection.query("SET FOREIGN_KEY_CHECKS=1");
             connection.query("INSERT INTO " + names[i] + " (" + columns + ")" + " VALUES (" + values + ")");
         }
     }
