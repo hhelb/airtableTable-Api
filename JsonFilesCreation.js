@@ -29,14 +29,16 @@ var tables = [places, people , objects, events , media  , types  , tags , catego
 
 chaining(tables);
 
+// loop over all the tables declared above
 function chaining(tables){
     for (var i = 0; i<tables.length; i++){
-        getrecords(base, view, tables[i]); // dans la méthode resolve de cette fonction
+        getRecords(base, view, tables[i]);
     }
 }
-function getrecords(base, view,nomTable) {
+// get the records of the current table in the loop from AirtableDB
+function getRecords(base, view, nameTable) {
         var table = [];
-        base(nomTable).select({
+        base(nameTable).select({
             view: view
         }).eachPage(function page(records, fetchNextPage) {
                 records.forEach(function(record) {
@@ -47,12 +49,13 @@ function getrecords(base, view,nomTable) {
                     table.push(tableField);
                 });
                 fetchNextPage();
-                // On va faire un callback à la fonction d'écriture une fois que les données ont bien été stockées
             }, function done(error){
-            fromOneToTwoTabs(table, nomTable);
+            fromOneToTwoTabs(table, nameTable);
                 if (error){console.log(error);}}
         );
 }
+// split the table into two arrays : one with the main fields, the second with the linked fields and their airtable ids:
+// [linked_people:"4jkey023nd", linked_tag:"4jkey016pkj", linked_event: "4jkey1818op"]
 function fromOneToTwoTabs(table, nameTable){
     var tableFinale = [];
     var array = [];
@@ -66,7 +69,7 @@ function fromOneToTwoTabs(table, nameTable){
                 var nameField = key.slice(7);
                 findID(nameTable,linkedVariable,id_table,linkEntry,nameField,array)
                     .then(function() {
-                        console.log("ecriture effectuee");
+                        console.log("File written");
                     })
             }
             else{
@@ -77,8 +80,8 @@ function fromOneToTwoTabs(table, nameTable){
     }
     writeTableArrayToJson(nameTable, tableFinale);
 }
-
-function findID(nameTable, airtableID,id_table,jsonTable,nameField,array){
+// async call getting our written ids instead of the airtableid and pushing it into an array
+function findID(nameTable, airtableID, id_table, jsonTable, nameField, array){
     return new Promise ( function(resolve, reject){
         var id = "";
         base(nameTable).find(airtableID, function(err, record){
@@ -88,13 +91,18 @@ function findID(nameTable, airtableID,id_table,jsonTable,nameField,array){
             var namefield = nameField.slice(0,-1);
             jsonTable[nameTable.slice(-1) == 's'? nametable+'_id':nameTable+'_id'] = id_table;
             jsonTable[nameField.slice(-1) == 's'? namefield+'_id':nameField+'_id'] = id;
+            console.log(namefield);
+            console.log(nameField +" "+ nametable);
             array.push(jsonTable);
             resolve(tableLinkCreator(nameTable, nameField, array));
-            reject("no table");
+            reject("No table");
         });
     })
 }
-
+// transform the array "linked_places" [place_id:1, people_id: 1 , tag_id: 5, event_id:8] into several arrays:
+// [place_id:1, people_id:1] ,
+// [place_id:1, tag_id:5] ,
+// [place_id:1, event_id:8]
 function tableLinkCreator(nameTable, nameField, array){
     var tab = [];
     var k = 0 ;
@@ -112,26 +120,29 @@ function tableLinkCreator(nameTable, nameField, array){
                 for (var key in tab[0]) {
                     tmptab.push(key);
                 }
-                for (var keyT in array[i]) { /*erreur, il faut seulement récupérer le deuxième élément*/
+                for (var keyT in array[i]) {
                         tmparray.push(keyT);
                 }
                 if(bool[i] == false && (tmptab[1] == tmparray[1])){
                     tab.push(array[i]);
+                    console.log(tab);
                     bool[i] = true;
                 }
                 }
             writeLinkedArrayToJson(nameTable, nameField, tab);
-
         }
         k +=1;
         tab = [];
     }
 }
+// write the linked arrays in a json file,
+// file is named  "nameTable_nameField" or "nameField_nameTable"
+// if one of them already exists do not write
 function writeLinkedArrayToJson(nameTable, nameField, array){
     var path = "./json/"+nameTable+"_"+nameField+".json";
         fs.access("./json/"+nameField+"_"+nameTable+".json", fs.F_OK, function(err){
             if(!err){
-                console.log("existe deja");
+                console.log("Already exists");
             }
             else{
                 fs.writeFile(path, JSON.stringify(array), function(err){
@@ -140,7 +151,7 @@ function writeLinkedArrayToJson(nameTable, nameField, array){
             }
         });
 }
-
+// write the main tables into json files
 function writeTableArrayToJson(nameTable, array){
     fs.writeFile("./json/"+nameTable+".json", JSON.stringify(array), function(err){
         if(err) console.log("ERROR "+ nameTable+ " : "+ err);

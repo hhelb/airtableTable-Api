@@ -33,6 +33,7 @@ mysql.createConnection({
                     console.log(res);
                 }
                 if (jsonData.name == undefined) {
+                    console.log(names[i]);
                     jsonData.name = "PAS DE NOM";
                 }
                 if (jsonData.start_date !== undefined) {
